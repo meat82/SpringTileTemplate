@@ -42,6 +42,7 @@ dependencies {
 	compile("javax.servlet.jsp:jsp-api:" + javaServletJpsVersion)
 	compile("log4j:log4j:"+log4jVersion) 
 	compile("org.slf4j:slf4j-api:" + slf4jVersion)
+	compile('org.apache.commons:commons-lang3:3.1')
 	
 	//Spring Tiles dependency START
 	compile("org.apache.tiles:tiles-api:" + apacheTilesVersion)

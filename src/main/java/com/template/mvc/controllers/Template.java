@@ -26,4 +26,12 @@ public class Template {
 
         return new ModelAndView("template");
     }
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ModelAndView test(Locale locale, Model model) {
+        if(LOGGER.isInfoEnabled()){
+            LOGGER.info("Welcome home! The client locale is {}." + locale.toString());
+        }
+
+        return new ModelAndView("template");
+    }
 }
