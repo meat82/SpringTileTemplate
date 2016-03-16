@@ -1,0 +1,72 @@
+def tomcat_home='C:/apps/tomcat8'
+def tomcat_webapps = tomcat_home + '/webapps'
+def web_app = 'F:/workspaces/springmvctest/build/libs'
+def warName = 'springtemplate'
+
+ext{
+	springVersion='4.0.7.RELEASE'
+	javaServletApiVersion='2.5'
+	javaServletJstlVersion='1.2'
+	javaServletJpsVersion='2.1'
+	slf4jVersion='1.7.6'
+	log4jVersion='1.2.17'
+	apacheTilesVersion='3.0.1'
+	apacheRequestAPIVersion='1.0.6'
+	velocityVersion='2.0'
+	freeMarkerVersion='2.3.15'
+	mvelVersion='2.0.11'
+	ognlVersion='2.7.3'
+	
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'war'
+apply plugin: 'idea'
+
+war {
+	archiveName warName + '.war'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+dependencies {
+    compile ("org.springframework:spring-webmvc:" + springVersion)
+	compile("javax.servlet:servlet-api:" + javaServletApiVersion)
+	compile("javax.servlet:jstl:" + javaServletJstlVersion)
+	compile("javax.servlet.jsp:jsp-api:" + javaServletJpsVersion)
+	compile("log4j:log4j:"+log4jVersion) 
+	compile("org.slf4j:slf4j-api:" + slf4jVersion)
+	
+	//Spring Tiles dependency START
+	compile("org.apache.tiles:tiles-api:" + apacheTilesVersion)
+	compile("org.apache.tiles:tiles-core:" + apacheTilesVersion)
+	compile("org.apache.tiles:tiles-jsp:" + apacheTilesVersion)
+	compile("org.apache.tiles:tiles-servlet:" + apacheTilesVersion)
+	compile("org.apache.tiles:tiles-template:" + apacheTilesVersion)
+	compile("org.apache.tiles:tiles-request-api:" + apacheRequestAPIVersion)
+	compile("org.apache.velocity:velocity-tools:" + velocityVersion)
+	compile("org.freemarker:freemarker:" + freeMarkerVersion)
+	compile("org.mvel:mvel2:" + mvelVersion)
+	compile("ognl:ognl:" + ognlVersion)
+	//Spring Tiles dependency END
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
+task webDeploy() {
+    copy {
+		from web_app + '/' + warName + '.war'
+        into tomcat_webapps
+    }
+}
+task explodedWar(type: Sync) {
+    into "$buildDir" + '/' + 'libs' + '/' + warName
+    with war
+}
