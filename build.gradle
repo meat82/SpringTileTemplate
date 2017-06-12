@@ -22,7 +22,6 @@ ext{
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'war'
-apply plugin: 'idea'
 
 war {
 	archiveName warName + '.war'
@@ -59,7 +58,7 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
+    gradleVersion = '3.4'
 }
 task webDeploy() {
     copy {
